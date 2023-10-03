@@ -1,69 +1,21 @@
-#### Setup
+# HabitHero 🚀
 
-```bash
-npm install && npm start
-```
+HabitHero is a full-stack web application built to help you track your habits. Whether you're trying to form new habits or break old ones, HabitHero provides an intuitive interface to manage and monitor your progress.
 
-#### Database Connection
+## Features ✨
 
-1. Import connect.js
-2. Invoke in start()
-3. Setup .env in the root
-4. Add MONGO_URI with correct value
+- **User Authentication**: Sign up and log in to create a personalized habit-tracking experience.
+- **Create Habits**: Easily add new habits with names, descriptions, and tracking details.
+- **Track Progress**: Mark your habits as completed or skipped for each day.
+- **Visual Insights**: Visualize your habit streaks and history to stay motivated.
+- **Edit and Delete**: Modify or remove habits as your goals change.
+- **Responsive Design**: Enjoy a seamless experience on both desktop and mobile devices.
 
-#### Routers
+## Tech Stack 🛠️
 
-- auth.js
-- jobs.js
+HabitHero is built using the MERN stack:
 
-#### User Model
-
-Email Validation Regex
-
-```regex
-/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-```
-
-#### Register User
-
-- Validate - name, email, password - with Mongoose
-- Hash Password (with bcryptjs)
-- Save User
-- Generate Token
-- Send Response with Token
-
-#### Login User
-
-- Validate - email, password - in controller
-- If email or password is missing, throw BadRequestError
-- Find User
-- Compare Passwords
-- If no user or password does not match, throw UnauthenticatedError
-- If correct, generate Token
-- Send Response with Token
-
-#### Mongoose Errors
-
-- Validation Errors
-- Duplicate (Email)
-- Cast Error
-
-#### Security
-
-- helmet
-- cors
-- xss-clean
-- express-rate-limit
-
-Swagger UI
-
-```yaml
-/jobs/{id}:
-  parameters:
-    - in: path
-      name: id
-      schema:
-        type: string
-      required: true
-      description: the job id
-```
+- **MongoDB**: For storing user data and habit information.
+- **Express.js**: To create a robust and scalable API.
+- **React.js**: Building the user interface and dynamic habit tracking.
+- **Node.js**: Running the server-side code.
