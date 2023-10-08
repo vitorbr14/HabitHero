@@ -1,4 +1,5 @@
 const Task = require('../models/Task')
+
 const {
     StatusCodes
 } = require('http-status-codes')
@@ -20,7 +21,7 @@ const getAllTasks = async (req, res) => {
     const allTasks = await Task.find({
         createdBy: req.userTokenData.userId
     })
-    res.json(allTasks)
+    res.status(StatusCodes.CREATED).json(allTasks)
 }
 
 const getSingleTask = async (req, res) => {
@@ -42,18 +43,43 @@ const getSingleTask = async (req, res) => {
     if (!newTask) {
         throw new NotFoundError(`No task found with this ID: ${id}`)
     }
-    res.send(newTask)
+    res.status(StatusCodes.OK).json(newTask)
 
 
 }
 
 const updateTask = async (req, res) => {
-    res.send('update task')
+ const {id} = req.params
+ const {userId} = req.userTokenData
+ const {taskTitle,TaskDesk,TaskStatus} = req.body
+
+
+ 
+ const updatedTask = await Task.findOneAndUpdate(
+    { _id: id, createdBy: userId }, // Condições de pesquisa
+    req.body, // Dados a serem atualizados
+    { new: true, runValidators: true } // Opções de configuração
+    )
+
+    if(!updatedTask) {
+        throw new NotFoundError(`No task found with this ID: ${id}`)
+    }
+    res.status(StatusCodes.CREATED).json(updatedTask)
 
 }
 
 const deleteTask = async (req, res) => {
-    res.send('delete task')
+    const {id} = req.params
+    const {userId} =   req.userTokenData 
+   
+    const taskDelete = await Task.findOneAndRemove({_id:id,createdBy:userId})
+
+    if(!taskDelete) {
+        throw new NotFoundError(`No task found with this ID: ${id}`)
+    }
+    res.status(StatusCodes.CREATED).json(taskDelete)
+
+
 
 }
 
