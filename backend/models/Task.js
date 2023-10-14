@@ -9,10 +9,10 @@ const TaskSchema = new mongoose.Schema({
         type: String,
         maxlength:150
     },
-    taskStatus: {
-        type: String,
-        enum:['completed', 'pending'],
-        default: 'pending'
+    phoneNumber: {
+        type: Number,
+        required:[true,'Please provide a Telephone Number']
+       
     },
     createdBy: {
         type: mongoose.Types.ObjectId,

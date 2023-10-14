@@ -1,122 +1,41 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Link} from 'react-router-dom'
-import {useForm} from 'react-hook-form'
-import axios from 'axios'
-import { useState, useEffect } from 'react';
+import React from 'react'
 
-const defaultTheme = createTheme();
-
-export default function SignUp() {
-
-  const {register, handleSubmit, formState:{errors}} = useForm()
-  
-  
-
-  const onSubmit =  (data) =>{
-    axios.post('http://localhost:5000/api/v1/auth/register',data)
-    .then((res)=>{
-      console.log(res.data)
-      window.localStorage.setItem('info',JSON.stringify(res.data))
-      
-      
-
-    }).catch((error)=>{
-      console.log(error)
-    })
-  }
+const Register = () => {
   return (
-    <ThemeProvider theme={defaultTheme}>
-    
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-       
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  autoComplete="given-name"
-                  name="name"
-                  required
-                  fullWidth
-                  id="name"
-                  label="name"
-                  autoFocus
-                  {...register('name',{required:true})}
-                  
-                 
+    <section className="bg-gray-50 bg-emerald-400">
+  <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+   
+      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                  Create an account
+              </h1>
+              <form className="space-y-4 md:space-y-6" action="#">
+              <div>
+                      <label for="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                      <input type="text" name="name" id="name" placeholder="Name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                  </div>
 
-                />
-              </Grid>
-              
+                  <div>
+                      <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                      <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                  </div>
+                  <div>
+                      <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                      <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                  </div>
+                 
              
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  {...register('email',{required:true})}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  {...register('password',{required:true})}
-                />
-              </Grid>
-             
-            </Grid>
-            <Button
-             onClick={()=>handleSubmit(onSubmit)()}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-              <Link to="/login"> Already have an account? Sign in</Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-        
-      </Container>
-    </ThemeProvider>
-  );
+                  <button type="submit" className="w-full text-white bg-emerald-500 hover:bg-emerald-400 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Register</button>
+                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                        Already have an account? <a href="#" className="font-medium text-emerald-500 hover:underline dark:text-primary-500">Login here</a>
+                    </p>
+              </form>
+          </div>
+      </div>
+  </div>
+</section>
+  )
 }
+
+export default Register
