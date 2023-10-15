@@ -8,6 +8,7 @@ import Login from './pages/login'
 import Register from './pages/Register'
 import AddNew from './pages/AddNew'
 import Edit from './pages/Edit'
+import {UserNameProvider} from './context/UserContext'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     element: <Register />
   },
   {
-    path: "new/:id",
+    path: "new",
     element: <AddNew />
   },
   {
@@ -32,6 +33,8 @@ const router = createBrowserRouter([
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserNameProvider>
+      <RouterProvider router={router} />
+    </UserNameProvider>
   </React.StrictMode>,
 )

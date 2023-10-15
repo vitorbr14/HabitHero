@@ -1,15 +1,46 @@
 import React from 'react'
+import { useState,useEffect, useContext } from 'react'
+import axios from 'axios'
+import { LocalContext } from '../context/UserContext';
 import TableItem from './TableItem'
 import TableHead from './TableHead'
 
 const Table = () => {
+  const {localStorageData, setlocalStorageData} = useContext(LocalContext)
+  const {token} = localStorageData
+  const [allData, setAllData] = useState([])
+
+
+  useEffect(() => {
+  if(token) {
+    axios.get('http://localhost:5000/api/v1/tasks/', {
+       headers: {
+         'Authorization': `Bearer ${token}`
+       }
+     }).then((res)=>{
+       setAllData(res.data)
+       
+      
+     }).catch((error)=>{
+       console.log('error')
+     });
+  }
+
+
+  }, [token])
+
+
+
   return (
    
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 relative">
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 relative">
     <TableHead />
         <tbody>
-            <TableItem /> 
+          
+            {allData.map((data,key)=>{
+              return <TableItem key={data._id} /> 
+            }) }
             
         </tbody>
     </table>
