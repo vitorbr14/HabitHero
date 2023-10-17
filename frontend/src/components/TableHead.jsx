@@ -18,7 +18,7 @@ const TableHead = () => {
                 <AiOutlinePlus className='addButton' onClick={()=> navigate('/new') } />
             </div>
             <h2 className='py-4'>Register Client</h2>
-            <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Browse a list of Flowbite products designed to help you work and play, stay organized, get answers, keep in touch, grow your business, and more.</p>
+            <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, numquam.</p>
         </caption>
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>

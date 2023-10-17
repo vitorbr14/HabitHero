@@ -9,22 +9,24 @@ const Table = () => {
   const {localStorageData, setlocalStorageData} = useContext(LocalContext)
   const {token} = localStorageData
   const [allData, setAllData] = useState([])
+ 
 
 
   useEffect(() => {
-  if(token) {
+  
     axios.get('http://localhost:5000/api/v1/tasks/', {
        headers: {
          'Authorization': `Bearer ${token}`
        }
      }).then((res)=>{
        setAllData(res.data)
+       console.log(res.data)
        
       
      }).catch((error)=>{
-       console.log('error')
+       return error
      });
-  }
+  
 
 
   }, [token])
@@ -39,7 +41,7 @@ const Table = () => {
         <tbody>
           
             {allData.map((data,key)=>{
-              return <TableItem key={data._id} /> 
+              return <TableItem data={data}  setAllData={setAllData} /> 
             }) }
             
         </tbody>
