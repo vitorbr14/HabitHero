@@ -14,7 +14,6 @@ const AddNew = () => {
   } = useForm()
 
   const navigate = useNavigate()
-
   const onSubmit = (data) => {
     
    axios.post('http://localhost:5000/api/v1/tasks', data, {
@@ -35,18 +34,21 @@ const AddNew = () => {
   
              <div>
                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                 <input type="name" name="taskTitle" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" {...register("taskTitle", { required: true })} /> 
+                 <input type="name" name="taskTitle" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" {...register("taskTitle", { required:{value:true,message:'Name is required.'} })} /> 
+                 <p className='error'>{errors.taskTitle?.message}</p>
              </div>
 
              <div>
                         <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                        <input  name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com"  {...register("email", { required: true })} /> 
+                        <input  name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com"  {...register("email", { required:{value:true,message:'Email is required.'} })} /> 
+                        <p className='error'>{errors.email?.message}</p>
                     </div>
 
 
              <div>
                  <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telephone</label>
-                 <input type="number" name="phoneNumber" placeholder="Telephone" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" {...register("phoneNumber", { required: true })} /> 
+                 <input type="number" name="phoneNumber" placeholder="Telephone" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" {...register("phoneNumber", { required:{value:true,message:'Phone Number is required.'} })} /> 
+                 <p className='error'>{errors.phoneNumber?.message}</p>
              </div>
             
           

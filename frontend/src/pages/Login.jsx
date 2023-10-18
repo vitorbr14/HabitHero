@@ -18,7 +18,7 @@ const login = () => {
     const onSubmit = (data) => {
         axios.post('http://localhost:5000/api/v1/auth/login',data)
         .then((res)=>{
-            console.log(res.data)
+           
             localStorage.setItem("key", JSON.stringify(res.data)); 
             setlocalStorageData(res.data)
             navigate('/')
@@ -42,12 +42,14 @@ const login = () => {
   
                     <div>
                         <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                        <input  name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com"  {...register("email", { required: true })} /> 
+                        <input  name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com"  {...register("email", { required:{value:true,message:'Email is required.'} })} /> 
+                        <p className='error'>{errors.email?.message}</p>
                     </div>
                     <small className='text-red-500 hidden'>Please, provide an email</small>
                     <div>
                         <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" {...register("password", { required: true })} /> 
+                        <input name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" {...register("password",{ required:{value:true,message:'Password is required.'} })} /> 
+                        <p className='error'>{errors.password?.message}</p>
                     </div>
                     <small className='text-red-500 hidden'>Please, provide password</small>
                  

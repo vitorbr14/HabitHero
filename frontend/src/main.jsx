@@ -4,11 +4,13 @@ import App from './App'
 import './index.css'
 import { createBrowserRouter, Route, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home'
-import Login from './pages/login'
+import Login from './pages/Login'
 import Register from './pages/Register'
+import NotFound from './pages/NotFound'
 import AddNew from './pages/AddNew'
 import Edit from './pages/Edit'
 import {UserNameProvider} from './context/UserContext'
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "edit/:id",
     element: <Edit />
+  },
+  {
+    path: "*",
+    element: <NotFound />
   },
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(

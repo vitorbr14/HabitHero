@@ -1,5 +1,5 @@
 import { useState,useEffect, useContext } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form"
 import axios from 'axios'
 import { LocalContext } from '../context/UserContext';
@@ -13,13 +13,29 @@ const Edit = () => {
     const [loading, setloading] = useState({})
     const {token} = localStorageData
     const {id} = useParams()
+   
     const {
         register,
         handleSubmit,
         formState: { errors },
       } = useForm()
       
-    
+    const navigate = useNavigate()
+
+      const onSubmit = (data) => {
+       axios.patch(`http://localhost:5000/api/v1/tasks/${id}`,data , {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+       }).then((res)=>{
+       
+        navigate('/')
+
+       }).catch((error)=>{
+       console.log(error)
+       })
+
+      }
     useEffect(() => {
 
        
@@ -29,7 +45,7 @@ const Edit = () => {
                'Authorization': `Bearer ${token}`
              }
            }).then((res)=>{
-            console.log(res.data)
+           
             setSingleData(res.data)
             setloading(false)
             
@@ -37,7 +53,9 @@ const Edit = () => {
              
             
            }).catch((error)=>{
-             console.log(error)
+             if(error.code === "ERR_BAD_REQUEST") {
+              navigate('/')
+             }
            });
         }
 
@@ -46,15 +64,16 @@ const Edit = () => {
       
         }, [token])
         // It renders first cuz if you put a return before your code, it will renders it after all!!!
-        if (loading) {
-            return  <Spinner />
-          }
+        
+        if(loading) {
+         return <Spinner />
+         }
 
   return (
     <div className="wrapper h-screen md:w-full  flex justify-center items-center bg-emerald-400 ">
         
         <div className=' bg-white w-11/12 lg:w-4/12 p-8'>
-        <form className="space-y-4 md:space-y-6">
+        <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(onSubmit)}>
              
             <div>
                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID</label>
@@ -63,15 +82,15 @@ const Edit = () => {
              <div>
                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                  <input type="name" name="taskTitle" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""  
-                 defaultValue={singleData.taskTitle} {...register("taskTitle", { required: true })} /> 
+                 defaultValue={singleData.taskTitle} {...register("taskTitle")} /> 
              </div>
              <div>
                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                 <input type="name" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={singleData.email} required=""   {...register("email", { required: true })} /> 
+                 <input type="name" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue={singleData.email} required=""   {...register("email")} /> 
              </div>
              <div>
                  <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telephone</label>
-                 <input type="text" name="tele" placeholder="Telephone" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" defaultValue={singleData.phoneNumber} {...register("phoneNumber", { required: true })} /> 
+                 <input type="text" name="tele" placeholder="Telephone" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" defaultValue={singleData.phoneNumber} {...register("phoneNumber")} /> 
              </div>
             
           

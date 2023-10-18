@@ -33,7 +33,7 @@ const getSingleTask = async (req, res) => {
     const {
         userId
     } = req.userTokenData
-    console.log(id)
+    
     const newTask = await Task.findOne({
       
         _id: id,

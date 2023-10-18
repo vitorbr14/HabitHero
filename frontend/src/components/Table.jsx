@@ -14,18 +14,20 @@ const Table = () => {
 
   useEffect(() => {
   
-    axios.get('http://localhost:5000/api/v1/tasks/', {
+    if(token) {
+      axios.get('http://localhost:5000/api/v1/tasks/', {
        headers: {
          'Authorization': `Bearer ${token}`
        }
      }).then((res)=>{
        setAllData(res.data)
-       console.log(res.data)
+       
        
       
      }).catch((error)=>{
        return error
      });
+    }
   
 
 
